@@ -24,7 +24,7 @@ cursor = conn.cursor()
 @app.route('/searchzipcode/<searchZIP>')
 def searchzipcode(searchZIP):
     # Get data from database
-    cursor.execute("SELECT * FROM `table` WHERE Zipcode=%s", [searchZIP])
+    cursor.execute("SELECT * FROM `table` WHERE zip=%s", [searchZIP])
     test = cursor.rowcount
     if test != 1:
         return searchZIP + " was not found"
@@ -35,13 +35,13 @@ def searchzipcode(searchZIP):
 #update zipcode database population for a specified zip code
 @app.route('/updatezippop/<updateZIP> <updatePOP>')
 def updatezippop(updateZIP, updatePOP):
-    cursor.execute("SELECT * FROM `table` WHERE Zipcode=%s", [updateZIP])
+    cursor.execute("SELECT * FROM `table` WHERE zip=%s", [updateZIP])
     test = cursor.rowcount
     if test != 1:
         return updateZIP + " was not found"
     else:
-        cursor.execute("UPDATE `table` SET EstimatedPopulation = %s WHERE Zipcode= %s;", [updatePOP,updateZIP])
-        cursor.execute("SELECT * FROM `table` WHERE Zipcode=%s and EstimatedPopulation=%s", [updateZIP,updatePOP])
+        cursor.execute("UPDATE `table` SET Population = %s WHERE zip= %s;", [updatePOP,updateZIP])
+        cursor.execute("SELECT * FROM `table` WHERE zip=%s and Population=%s", [updateZIP,updatePOP])
         test1 = cursor.rowcount
         if test1 != 1:
             return updateZIP + "  failed to update"

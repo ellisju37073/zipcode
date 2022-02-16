@@ -14,6 +14,6 @@ tables = pandas.read_csv(r"zip_code_database.csv")
 
 
 connection=engine.connect()
-tables.to_sql('zipcodes',con = engine, if_exists = 'replace')
+tables.to_sql('table',con = engine, if_exists = 'replace')
 connection.close()
 print(tables)
